@@ -6,7 +6,7 @@ from .models import custID
 class editAccountForm(ModelForm):
     class Meta:
         model = custID
-        fields = ['customerDesc', 'isAdmin']
+        fields = ['customerDesc','level' , 'isAdmin']
 
 class custIDForm(ModelForm):
     class Meta:
