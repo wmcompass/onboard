@@ -1,0 +1,50 @@
+{% extends 'display/base.html' %}
+
+{% block content %}
+
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            <h2>Sign Up</h2>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" class="form-control" id="username" aria-describedby="usernameHelp">
+                    <small id="usernameHelp" class="form-text text-muted">使用者名稱不可以重複.</small>
+                </div>
+                <div class="form-group">
+                    <label for="password1">Password</label>
+                    <input type="password" name="password1" class="form-control" id="password1">
+                </div>
+                <div class="form-group">
+                    <label for="password2">Confirm Password</label>
+                    <input type="password" name="password2" class="form-control" id="password2">
+                </div>
+                <div class="form-group">
+                    <label for="customerID">CustomerID</label>
+                    <input type="customerID" name="customerID" class="form-control" id="customerID">
+                    <small id="customerIDHelp" class="form-text text-muted">客戶ID不可以重複.</small>
+                </div>
+                <div class="form-group">
+                    <label for="customerDesc">CustomerDesc</label>
+                    <input type="customerDesc" name="customerDesc" class="form-control" id="customerDesc">
+                </div>
+
+
+
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+            </form>
+            <hr>
+
+        </div>
+    </div>
+{% endblock %}

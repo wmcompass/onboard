@@ -1,0 +1,16 @@
+{% extends 'display/base.html' %}
+
+{% block content %}
+
+<h1>Manage Customer Purchase</h1>
+
+<br> {{error}} <br>
+<br> {{success}} <br>
+
+    <form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type = "add" >增加</button>
+    </form>
+
+{% endblock %}

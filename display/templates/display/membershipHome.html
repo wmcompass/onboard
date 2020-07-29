@@ -1,0 +1,115 @@
+{% extends 'display/base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <div class="jumbotron text-center">
+        <h1>KYMC VIP Club - Membership Home Page</h1>
+        <h3>Welcome {{user.username}} </h3>
+    </div>
+
+
+{% if isAdmin %}
+
+    <div class="container">
+      <h2>訂單紀錄</h2> <br>
+        <a class="btn btn-primary" href="{% url 'addPurchase' %}" role="button">新增</a>
+      <br><br>
+      <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>訂單日期</th> <!-- OrderDate -->
+            <th>訂單編號</th> <!-- orderNumber -->
+            <th>客戶名稱</th> <!-- customerDesc -->
+            <th>適用機台</th> <!-- pressDesc -->
+            <th>幣別</th> <!-- currency -->
+            <th>金額</th> <!-- amount -->
+            <th>國家</th> <!-- country -->
+            <th>修改</th>
+            <th>刪除</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for purchase in purchases %}
+            <tr>
+                <td>{{purchase.orderDate}}</td> <!-- OrderDate -->
+                <td>{{purchase.orderNumber}}</td> <!-- orderNumber -->
+                <td>{{purchase.customerDesc}}</td> <!-- customerDesc -->
+                <td>{{purchase.pressDesc}}</td> <!-- pressDesc -->
+                <td>{{purchase.currency}}</td> <!-- currency -->
+                <td>{{purchase.amount}}</td> <!-- amount -->
+                <td>{{purchase.country}}</td> <!-- country -->
+                <td>
+                    <a href="{% url 'editPurchase' purchase.id %}">
+                    修改
+                    </a>
+                </td> <!-- The edit button -->
+                <td>
+                    <form method="POST" action="{% url 'deletePurchase' purchase.id %}">
+                        {% csrf_token %}
+                     <button type = "submit" >刪除</button>
+                    </form>
+                </td> <!-- The delete button -->
+            </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+{% endif %}
+
+{% if isAdmin == False %}
+
+    <div class="container">
+      <h2>訂單紀錄</h2> <br>
+      <br>
+        <h4> 總比數:{{ totalcount }} &nbsp &nbsp  總金額: {{ totalvalue }} </h4>
+      <br><br>
+      <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>訂單日期</th> <!-- OrderDate -->
+            <th>訂單編號</th> <!-- orderNumber -->
+            <th>客戶名稱</th> <!-- customerDesc -->
+            <th>適用機台</th> <!-- pressDesc -->
+            <th>幣別</th> <!-- currency -->
+            <th>金額</th> <!-- amount -->
+            <th>國家</th> <!-- country -->
+          </tr>
+        </thead>
+        <tbody>
+        {% for purchase in purchases %}
+            <tr>
+                <td>{{purchase.orderDate}}</td> <!-- OrderDate -->
+                <td>{{purchase.orderNumber}}</td> <!-- orderNumber -->
+                <td>{{purchase.customerDesc}}</td> <!-- customerDesc -->
+                <td>{{purchase.pressDesc}}</td> <!-- pressDesc -->
+                <td>{{purchase.currency}}</td> <!-- currency -->
+                <td>{{purchase.amount}}</td> <!-- amount -->
+                <td>{{purchase.country}}</td> <!-- country -->
+            </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+{% endif %}
+
+</body>
+
+</html>
+
+{% endblock %}

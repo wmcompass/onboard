@@ -1,0 +1,22 @@
+{% extends 'display/base.html' %}
+
+{% block content %}
+
+<h1>Add Customer Purchase</h1>
+
+<div class="row justify-content-center mt-5">
+
+    <br> {{error}} <br>
+    <br> {{success}} <br>
+    <p> The OrderDate format is yyyy-mm-dd</p>
+        <div class="col-md-5">
+            <form method="POST">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button type = "submit" >增加</button>
+            </form>
+        </div>
+</div>
+
+
+{% endblock %}
