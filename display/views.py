@@ -29,7 +29,7 @@ def membershipHome(request):
 
         # Calculate
         totalcount = purchase.objects.filter(customerID__in=current_custID).count()
-        totalvalue = purchase.objects.filter(customerID__in=current_custID).aggregate(Sum('amount'))
+        totalvalue = purchase.objects.filter(customerID__in=current_custID).aggregate(Sum('amount'))['amount__sum']
 
         return render(request, 'display/membershipHome.html', {'purchases': purchaseparts, 'current':current_custID, 'current_users':current_user, 'isAdmin': isAdmin, 'totalcount': totalcount, 'totalvalue': totalvalue})
     else:
