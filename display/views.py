@@ -4,6 +4,7 @@ from .models import purchase
 from .models import displayBackground
 from .forms import addPurchaseForm
 from .forms import editPurchaseForm
+from .forms import editAccountForm
 from .models import custID
 
 from django.contrib.auth.decorators import login_required
@@ -87,3 +88,17 @@ def manageAccount(request):
     group = custID.objects.get(username=current_user).group
     accounts = custID.objects.filter(group=group)
     return render(request, 'display/manageAccount.html', {'accounts': accounts})
+
+@login_required
+def editAccount(request, custID_pk):
+    editAccount = get_object_or_404(custID, pk= custID_pk)
+    if request.method == "GET":
+        form = editAccountForm(instance=editAccount)
+        return render(request, 'display/editAccount.html', {'form': form})
+    else:
+        try:
+            form = editAccountForm(request.POST, instance=editAccount)
+            form.save()
+            return redirect('membershipHome')
+        except ValueError:
+            return render(request, 'display/editAccount.html',  {'editaccount': editAccount, 'form':form, 'error':'Bad data type'})

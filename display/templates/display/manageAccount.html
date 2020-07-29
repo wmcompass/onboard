@@ -24,7 +24,11 @@
                 <td>{{account.customerDesc}}</td> <!-- customerDesc -->
                 <td>{{account.customerID}}</td> <!-- customerID -->
                 <td>{{account.isAdmin}}</td> <!-- isAdmin -->
-                <td>edit</td> <!-- The edit button -->
+                <td>
+                    <a href="{% url 'editAccount' account.id %}">
+                    修改
+                    </a>
+                </td><!-- The edit button -->
             </tr>
         {% endfor %}
         </tbody>

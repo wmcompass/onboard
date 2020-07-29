@@ -55,6 +55,10 @@ urlpatterns = [
 
     # 刪除交易資料
     path('purchase/<int:purchase_pk>/delete', dv.deletePurchase, name='deletePurchase'),
+
+    # 修改帳號資料
+    path('manageAccount/<int:custID_pk>', dv.editAccount, name='editAccount'),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

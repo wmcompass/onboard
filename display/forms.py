@@ -3,10 +3,10 @@ from django.forms import ModelForm
 from .models import purchase
 from .models import custID
 
-class manageAccountForm(ModelForm):
+class editAccountForm(ModelForm):
     class Meta:
         model = custID
-        fields = ['customerID', 'username', 'customerDesc', 'group', 'isAdmin']
+        fields = ['customerDesc', 'isAdmin']
 
 class custIDForm(ModelForm):
     class Meta:

@@ -1,0 +1,24 @@
+{% extends 'display/base.html' %}
+
+{% block content %}
+
+<h1>Edit Account</h1>
+
+
+<div class="row justify-content-center mt-5">
+
+    <h3>{{ error }}</h3>
+    <br><br>
+        <div class="col-md-5">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type = "submit" >儲存變更</button>
+            </form>
+        </div>
+</div>
+
+
+
+
+{% endblock %}
