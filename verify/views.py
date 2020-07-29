@@ -25,7 +25,10 @@ from display import views
 def signup(request):
     if request.method =="GET":
         background = verifyBackground.objects.all()
-        return render(request, 'verify/signup.html', {'backgrounds':background,'form':UserCreationForm()})
+        current_user = User.objects.get(username=request.user.username)
+        group = custID.objects.get(username=current_user).group
+
+        return render(request, 'verify/signup.html', {'backgrounds':background,'form':UserCreationForm() , 'group':group})
     else:
         #Create a new user
         if request.POST['password1'] == request.POST['password2']:
@@ -77,7 +80,6 @@ def adminRegister(request):
                     user = User.objects.create_user(request.POST['username'], password=request.POST['password1'])
                     user.save()
                     form = custIDForm(request.POST)
-                    form.isAdmin = 'True'
                     newuser = form.save(commit=False)
                     newuser.save()
                     login(request, user)

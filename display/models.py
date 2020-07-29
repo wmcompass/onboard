@@ -13,6 +13,7 @@ class purchase(models.Model):
     amount = models.FloatField()
     NTamount = models.FloatField()
     country = models.CharField(max_length=100)
+    group = models.CharField(max_length=250)
 
     def __str__ (self):
         return '%s %s %s' % (self.orderNumber, self.customerDesc, self.customerID)
@@ -26,4 +27,7 @@ class custID(models.Model):
     customerDesc = models.CharField(max_length=250)
     group = models.CharField(max_length=250)
     isAdmin = models.BooleanField(default=False)
+
+    def __str__ (self):
+        return '%s %s %s %s' % (self.customerID, self.username, self.group , self.isAdmin)
 

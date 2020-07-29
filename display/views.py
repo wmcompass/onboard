@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import purchase
 from .models import displayBackground
-from .forms import managePurchaseForm
 from .forms import addPurchaseForm
+from .forms import editPurchaseForm
 from .models import custID
 
 from django.contrib.auth.decorators import login_required
@@ -22,6 +22,7 @@ from verify import views
 def membershipHome(request):
     current_user = User.objects.get(username=request.user.username)
     Admin = custID.objects.get(username=current_user).isAdmin
+    group = custID.objects.get(username=current_user).group
     isAdmin = Admin
     if isAdmin == False:
         current_custID = custID.objects.filter(username=current_user).values_list('customerID')[0]
@@ -33,15 +34,23 @@ def membershipHome(request):
 
         return render(request, 'display/membershipHome.html', {'purchases': purchaseparts, 'current':current_custID, 'current_users':current_user, 'isAdmin': isAdmin, 'totalcount': totalcount, 'totalvalue': totalvalue})
     else:
-        purchaseparts = purchase.objects.all()
-        return render(request, 'display/membershipHome.html', {'purchases': purchaseparts, 'current_users':current_user, 'isAdmin': isAdmin})
-        #return render(request, 'display/base.html', {'admin': Admin})
+            if group == 'super':
+                purchaseparts = purchase.objects.all()
+                return render(request, 'display/membershipHome.html', {'purchases': purchaseparts, 'current_users':current_user, 'isAdmin': isAdmin})
+                #return render(request, 'display/base.html', {'admin': Admin})
+            else:
+                purchaseparts = purchase.objects.filter(group=group)
+                return render(request, 'display/membershipHome.html', {'purchases': purchaseparts, 'current_users':current_user, 'isAdmin': isAdmin})
+                #return render(request, 'display/base.html', {'admin': Admin})
+
 
 
 @login_required
 def addPurchase(request):
     if request.method == "GET":
-        return render(request, 'display/addPurchase.html', {'form' : addPurchaseForm })
+        current_user = User.objects.get(username=request.user.username)
+        group = custID.objects.get(username=current_user).group
+        return render(request, 'display/addPurchase.html', {'form' : addPurchaseForm , 'group':group})
     else:
         try:
             form = addPurchaseForm(request.POST)
@@ -54,11 +63,11 @@ def addPurchase(request):
 def editPurchase(request, purchase_pk):
     editpurchase = get_object_or_404(purchase, pk= purchase_pk)
     if request.method == "GET":
-        form = addPurchaseForm(instance=editpurchase)
+        form = editPurchaseForm(instance=editpurchase)
         return render(request, 'display/editPurchase.html', {'purchase': editpurchase,'form': form})
     else:
         try:
-            form = addPurchaseForm(request.POST, instance=editpurchase)
+            form = editPurchaseForm(request.POST, instance=editpurchase)
             form.save()
             return redirect('membershipHome')
         except ValueError:
@@ -73,21 +82,8 @@ def deletePurchase(request, purchase_pk):
 
 
 @login_required
-def managePurchase(request):
-    if request.method == "GET":
-        background = displayBackground.objects.all()
-        return render(request, 'display/managePurchase.html', {'backgrounds': background, 'form': managePurchaseForm()})
-    else:
-        try:
-            form = managePurchaseForm(request.POST)
-            form.save()
-            # newManagePurchase = form.save(commit=False)
-            #newManagePurchase.user = request.user
-            #newManagePurchase.save()
-            background = displayBackground.objects.all()
-            return render(request, 'display/managePurchase.html', {'backgrounds': background, 'form': managePurchaseForm()})
-        except ValueError:
-            background = displayBackground.objects.all()
-            return render(request, 'display/managePurchase.html', {'backgrounds': background, 'form': managePurchaseForm(), 'error': '資料型態有錯誤'})
-
-
+def manageAccount(request):
+    current_user = User.objects.get(username=request.user.username)
+    group = custID.objects.get(username=current_user).group
+    accounts = custID.objects.filter(group=group)
+    return render(request, 'display/manageAccount.html', {'accounts': accounts})

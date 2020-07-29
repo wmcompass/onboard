@@ -44,8 +44,8 @@ urlpatterns = [
     #會員登出頁面
     path('logout', vv.logoutuser, name='logoutuser'),
 
-    #管理者帳號 - TBD
-    path('managePurchase', dv.managePurchase, name='managePurchase'),
+    #管理使用者帳號 - TBD
+    path('manageAccount', dv.manageAccount, name='manageAccount'),
 
     #增加交易資料
     path('addPurchase', dv.addPurchase, name='addPurchase'),

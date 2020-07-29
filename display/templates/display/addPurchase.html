@@ -4,19 +4,111 @@
 
 <h1>Add Customer Purchase</h1>
 
-<div class="row justify-content-center mt-5">
 
-    <br> {{error}} <br>
-    <br> {{success}} <br>
-    <p> The OrderDate format is yyyy-mm-dd</p>
+    <div class="row justify-content-center mt-5">
         <div class="col-md-5">
-            <form method="POST">
-                {% csrf_token %}
-                {{form.as_p}}
-                <button type = "submit" >增加</button>
-            </form>
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+                {% if group == "super" %}
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="orderDate">orderDate</label>
+                            <input type="date" name="orderDate" class="form-control" id="orderDate">
+                        </div>
+                        <div class="form-group">
+                            <label for="orderNumber">orderNumber</label>
+                            <input type="text" name="orderNumber" class="form-control" id="orderNumber">
+                        </div>
+                        <div class="form-group">
+                            <label for="customerID">customerID</label>
+                            <input type="text" name="customerID" class="form-control" id="customerID">
+                        </div>
+                        <div class="form-group">
+                            <label for="customerDesc">customerDesc</label>
+                            <input type="text" name="customerDesc" class="form-control" id="customerDesc">
+                        </div>
+                        <div class="form-group">
+                            <label for="pressDesc">pressDesc</label>
+                            <input type="text" name="pressDesc" class="form-control" id="pressDesc">
+                        </div>
+                        <div class="form-group">
+                            <label for="currency">currency</label>
+                            <input type="text" name="currency" class="form-control" id="currency">
+                        </div>
+                        <div class="form-group">
+                            <label for="amount">amount</label>
+                            <input type="text" name="amount" class="form-control" id="amount">
+                        </div>
+                        <div class="form-group">
+                            <label for="NTamount">NTamount</label>
+                            <input type="text" name="NTamount" class="form-control" id="NTamount">
+                        </div>
+                        <div class="form-group">
+                            <label for="country">country</label>
+                            <input type="text" name="country" class="form-control" id="country">
+                        </div>
+                        <div class="form-group">
+                            <label for="group">group</label>
+                            <input type="text" name="group" class="form-control" id="group" ">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">新增</button>
+                    </form>
+                {% else %}
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="orderDate">orderDate</label>
+                            <input type="date" name="orderDate" class="form-control" id="orderDate">
+                        </div>
+                        <div class="form-group">
+                            <label for="orderNumber">orderNumber</label>
+                            <input type="text" name="orderNumber" class="form-control" id="orderNumber">
+                        </div>
+                        <div class="form-group">
+                            <label for="customerID">customerID</label>
+                            <input type="text" name="customerID" class="form-control" id="customerID">
+                        </div>
+                        <div class="form-group">
+                            <label for="customerDesc">customerDesc</label>
+                            <input type="text" name="customerDesc" class="form-control" id="customerDesc">
+                        </div>
+                        <div class="form-group">
+                            <label for="pressDesc">pressDesc</label>
+                            <input type="text" name="pressDesc" class="form-control" id="pressDesc">
+                        </div>
+                        <div class="form-group">
+                            <label for="currency">currency</label>
+                            <input type="text" name="currency" class="form-control" id="currency">
+                        </div>
+                        <div class="form-group">
+                            <label for="amount">amount</label>
+                            <input type="text" name="amount" class="form-control" id="amount">
+                        </div>
+                        <div class="form-group">
+                            <label for="NTamount">NTamount</label>
+                            <input type="text" name="NTamount" class="form-control" id="NTamount">
+                        </div>
+                        <div class="form-group">
+                            <label for="country">country</label>
+                            <input type="text" name="country" class="form-control" id="country">
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" name="group" class="form-control" id="group" value="{{ group }}">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">新增</button>
+                    </form>
+                {% endif %}
+            <hr>
+
         </div>
-</div>
+    </div>
+
 
 
 {% endblock %}
