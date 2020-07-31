@@ -6,7 +6,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <title>Onboard</title>
+    <title>onboard</title>
 </head>
 
 
@@ -18,7 +18,7 @@
     {% if user.is_authenticated %}
         {% if isAdmin %}
             <a class="navbar-brand" href="{% url 'membershipHome' %}">
-                <span>Powered by onboard</span>
+                <span>onboard</span>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -32,17 +32,17 @@
                             <button id="signOutBtn" type="submit">Logout</button>
                         </form>
                     </li>
-                    <li class="nav-item {{ signup }}">
-                        <a class="nav-link" href="{% url 'signup' %}">註冊</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'signup' %}">新增帳號</a>
                     </li>
-                    <li class="nav-item {{ manageAccount }}">
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'manageAccount' %}">帳號管理</a>
                     </li>
                 </ul>
             </div>>
         {% else %}
             <a class="navbar-brand" href="{% url 'membershipHome' %}">
-                <span>Powered by onboard</span>
+                <span>onboard</span>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -61,7 +61,7 @@
         {% endif %}
     {% else %}
         <a class="navbar-brand" href="{% url 'home' %}">
-            <span>KYMC Club</span>
+            <span>onboard</span>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -72,9 +72,6 @@
 
 </div>
 </nav>
-
-
-
 
 
 <!-- Optional JavaScript -->

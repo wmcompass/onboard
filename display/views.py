@@ -39,11 +39,9 @@ def membershipHome(request):
             if group == 'super':
                 purchaseparts = purchase.objects.all()
                 return render(request, 'display/membershipHome.html', {'purchases': purchaseparts, 'current_users':current_user, 'isAdmin': isAdmin, 'level': level, 'group':group})
-                #return render(request, 'display/base.html', {'admin': Admin})
             else:
                 purchaseparts = purchase.objects.filter(group=group)
                 return render(request, 'display/membershipHome.html', {'purchases': purchaseparts, 'current_users':current_user, 'isAdmin': isAdmin, 'level': level, 'group':group})
-                #return render(request, 'display/base.html', {'admin': Admin})
 
 
 
@@ -56,7 +54,7 @@ def addPurchase(request):
         if request.method == "GET":
             current_user = User.objects.get(username=request.user.username)
             group = custID.objects.get(username=current_user).group
-            return render(request, 'display/addPurchase.html', {'form' : addPurchaseForm , 'group':group})
+            return render(request, 'display/addPurchase.html', {'form' : addPurchaseForm , 'group':group , 'isAdmin': isAdmin})
         else:
             try:
                 form = addPurchaseForm(request.POST)
@@ -79,7 +77,7 @@ def editPurchase(request, purchase_pk):
             editpurchase = get_object_or_404(purchase, pk= purchase_pk,group=group)
             if request.method == "GET":
                 form = editPurchaseForm(instance=editpurchase)
-                return render(request, 'display/editPurchase.html', {'purchase': editpurchase,'form': form})
+                return render(request, 'display/editPurchase.html', {'purchase': editpurchase,'form': form , 'isAdmin': isAdmin})
             else:
                 try:
                     form = editPurchaseForm(request.POST, instance=editpurchase)
@@ -91,7 +89,7 @@ def editPurchase(request, purchase_pk):
             editpurchase = get_object_or_404(purchase, pk=purchase_pk)
             if request.method == "GET":
                 form = editPurchaseForm(instance=editpurchase)
-                return render(request, 'display/editPurchase.html', {'purchase': editpurchase, 'form': form})
+                return render(request, 'display/editPurchase.html', {'purchase': editpurchase, 'form': form , 'isAdmin': isAdmin})
             else:
                 try:
                     form = editPurchaseForm(request.POST, instance=editpurchase)
@@ -127,10 +125,10 @@ def manageAccount(request):
     if isAdmin:
         if group != 'super':
             accounts = custID.objects.filter(group=group)
-            return render(request, 'display/manageAccount.html', {'accounts': accounts, 'group': group})
+            return render(request, 'display/manageAccount.html', {'accounts': accounts, 'group': group, 'isAdmin': isAdmin})
         else:
             accounts = custID.objects.all()
-            return render(request, 'display/manageAccount.html', {'accounts': accounts, 'group': group})
+            return render(request, 'display/manageAccount.html', {'accounts': accounts, 'group': group, 'isAdmin': isAdmin})
     else:
         return render(request, 'verify/home.html')
 
@@ -145,7 +143,7 @@ def editAccount(request, custID_pk):
             editAccount = get_object_or_404(custID, pk= custID_pk, group=group)
             if request.method == "GET":
                 form = editAccountForm(instance=editAccount)
-                return render(request, 'display/editAccount.html', {'form': form})
+                return render(request, 'display/editAccount.html', {'form': form , 'isAdmin': isAdmin})
             else:
                 try:
                     form = editAccountForm(request.POST, instance=editAccount)
@@ -157,7 +155,7 @@ def editAccount(request, custID_pk):
             editAccount = get_object_or_404(custID, pk=custID_pk)
             if request.method == "GET":
                 form = editAccountForm(instance=editAccount)
-                return render(request, 'display/editAccount.html', {'form': form})
+                return render(request, 'display/editAccount.html', {'form': form , 'isAdmin': isAdmin})
             else:
                 try:
                     form = editAccountForm(request.POST, instance=editAccount)

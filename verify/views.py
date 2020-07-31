@@ -30,7 +30,7 @@ def signup(request):
             current_user = User.objects.get(username=request.user.username)
             group = custID.objects.get(username=current_user).group
 
-            return render(request, 'verify/signup.html', {'backgrounds':background,'form':UserCreationForm() , 'group':group})
+            return render(request, 'verify/signup.html', {'backgrounds':background,'form':UserCreationForm() , 'group':group, 'isAdmin': isAdmin})
         else:
             #Create a new user
             if request.POST['password1'] == request.POST['password2']:
