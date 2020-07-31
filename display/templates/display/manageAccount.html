@@ -4,35 +4,70 @@
 
 <h1>Manage Accounts</h1>
 
+    {% if group != 'super' %}
+        <div class="container">
+              <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>使用者帳號</th> <!-- username -->
+                    <th>客戶名稱</th> <!-- customerDesc -->
+                    <th>客戶ID</th> <!-- customerID -->
+                    <th>是否為管理者</th> <!-- isAdmin -->
+                    <th>修改</th>
 
-<div class="container">
-      <table class="table table-hover">
-        <thead>
-        <tr>
-            <th>使用者帳號</th> <!-- username -->
-            <th>客戶名稱</th> <!-- customerDesc -->
-            <th>客戶ID</th> <!-- customerID -->
-            <th>是否為管理者</th> <!-- isAdmin -->
-            <th>修改</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for account in accounts %}
+                    <tr>
+                        <td>{{account.username}}</td> <!-- username -->
+                        <td>{{account.customerDesc}}</td> <!-- customerDesc -->
+                        <td>{{account.customerID}}</td> <!-- customerID -->
+                        <td>{{account.isAdmin}}</td> <!-- isAdmin -->
+                        <td>
+                            <a href="{% url 'editAccount' account.id %}">
+                            修改
+                            </a>
+                        </td><!-- The edit button -->
+                    </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+        </div>
+    {% endif %}
 
-          </tr>
-        </thead>
-        <tbody>
-        {% for account in accounts %}
-            <tr>
-                <td>{{account.username}}</td> <!-- username -->
-                <td>{{account.customerDesc}}</td> <!-- customerDesc -->
-                <td>{{account.customerID}}</td> <!-- customerID -->
-                <td>{{account.isAdmin}}</td> <!-- isAdmin -->
-                <td>
-                    <a href="{% url 'editAccount' account.id %}">
-                    修改
-                    </a>
-                </td><!-- The edit button -->
-            </tr>
-        {% endfor %}
-        </tbody>
-      </table>
-    </div>
+    {% if group == 'super' %}
+        <div class="container">
+              <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>使用者帳號</th> <!-- username -->
+                    <th>客戶名稱</th> <!-- customerDesc -->
+                    <th>客戶ID</th> <!-- customerID -->
+                    <th>公司名稱</th> <!-- group -->
+                    <th>是否為管理者</th> <!-- isAdmin -->
+                    <th>修改</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                {% for account in accounts %}
+                    <tr>
+                        <td>{{account.username}}</td> <!-- username -->
+                        <td>{{account.customerDesc}}</td> <!-- customerDesc -->
+                        <td>{{account.customerID}}</td> <!-- customerID -->
+                        <td>{{account.group}}</td> <!-- group -->
+                        <td>{{account.isAdmin}}</td> <!-- isAdmin -->
+                        <td>
+                            <a href="{% url 'editAccount' account.id %}">
+                            修改
+                            </a>
+                        </td><!-- The edit button -->
+                    </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+        </div>
+    {% endif %}
 
 {% endblock %}

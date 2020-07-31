@@ -22,8 +22,9 @@ from verify import views
 @login_required
 def membershipHome(request):
     current_user = User.objects.get(username=request.user.username)
-    Admin = custID.objects.get(username=current_user).isAdmin
     group = custID.objects.get(username=current_user).group
+    level = custID.objects.get(username=current_user).level
+    Admin = custID.objects.get(username=current_user).isAdmin
     isAdmin = Admin
     if isAdmin == False:
         current_custID = custID.objects.filter(username=current_user).values_list('customerID')[0]
@@ -33,72 +34,139 @@ def membershipHome(request):
         totalcount = purchase.objects.filter(customerID__in=current_custID).count()
         totalvalue = purchase.objects.filter(customerID__in=current_custID).aggregate(Sum('amount'))['amount__sum']
 
-        return render(request, 'display/membershipHome.html', {'purchases': purchaseparts, 'current':current_custID, 'current_users':current_user, 'isAdmin': isAdmin, 'totalcount': totalcount, 'totalvalue': totalvalue})
+        return render(request, 'display/membershipHome.html', {'purchases': purchaseparts, 'current':current_custID, 'current_users':current_user, 'isAdmin': isAdmin, 'totalcount': totalcount, 'totalvalue': totalvalue, 'level': level, 'group':group})
     else:
             if group == 'super':
                 purchaseparts = purchase.objects.all()
-                return render(request, 'display/membershipHome.html', {'purchases': purchaseparts, 'current_users':current_user, 'isAdmin': isAdmin})
+                return render(request, 'display/membershipHome.html', {'purchases': purchaseparts, 'current_users':current_user, 'isAdmin': isAdmin, 'level': level, 'group':group})
                 #return render(request, 'display/base.html', {'admin': Admin})
             else:
                 purchaseparts = purchase.objects.filter(group=group)
-                return render(request, 'display/membershipHome.html', {'purchases': purchaseparts, 'current_users':current_user, 'isAdmin': isAdmin})
+                return render(request, 'display/membershipHome.html', {'purchases': purchaseparts, 'current_users':current_user, 'isAdmin': isAdmin, 'level': level, 'group':group})
                 #return render(request, 'display/base.html', {'admin': Admin})
 
 
 
 @login_required
 def addPurchase(request):
-    if request.method == "GET":
-        current_user = User.objects.get(username=request.user.username)
-        group = custID.objects.get(username=current_user).group
-        return render(request, 'display/addPurchase.html', {'form' : addPurchaseForm , 'group':group})
+    current_user = User.objects.get(username=request.user.username)
+    Admin = custID.objects.get(username=current_user).isAdmin
+    isAdmin = Admin
+    if isAdmin:
+        if request.method == "GET":
+            current_user = User.objects.get(username=request.user.username)
+            group = custID.objects.get(username=current_user).group
+            return render(request, 'display/addPurchase.html', {'form' : addPurchaseForm , 'group':group})
+        else:
+            try:
+                form = addPurchaseForm(request.POST)
+                form.save()
+                return redirect('membershipHome')
+            except ValueError:
+                return render(request, 'display/addPurchase.html', {'form': addPurchaseForm, 'error':'Bad data type'})
     else:
-        try:
-            form = addPurchaseForm(request.POST)
-            form.save()
-            return redirect('membershipHome')
-        except ValueError:
-            return render(request, 'display/addPurchase.html', {'form': addPurchaseForm, 'error':'Bad data type'})
+        return render(request, 'verify/home.html')
+
 
 @login_required
 def editPurchase(request, purchase_pk):
-    editpurchase = get_object_or_404(purchase, pk= purchase_pk)
-    if request.method == "GET":
-        form = editPurchaseForm(instance=editpurchase)
-        return render(request, 'display/editPurchase.html', {'purchase': editpurchase,'form': form})
+    current_user = User.objects.get(username=request.user.username)
+    group = custID.objects.get(username=current_user).group
+    Admin = custID.objects.get(username=current_user).isAdmin
+    isAdmin = Admin
+    if isAdmin:
+        if group != 'super':
+            editpurchase = get_object_or_404(purchase, pk= purchase_pk,group=group)
+            if request.method == "GET":
+                form = editPurchaseForm(instance=editpurchase)
+                return render(request, 'display/editPurchase.html', {'purchase': editpurchase,'form': form})
+            else:
+                try:
+                    form = editPurchaseForm(request.POST, instance=editpurchase)
+                    form.save()
+                    return redirect('membershipHome')
+                except ValueError:
+                    return render(request, 'display/editPurchase.html', {'purchase': editpurchase}, {'form':form}, {'error':'Bad data type'})
+        else:
+            editpurchase = get_object_or_404(purchase, pk=purchase_pk)
+            if request.method == "GET":
+                form = editPurchaseForm(instance=editpurchase)
+                return render(request, 'display/editPurchase.html', {'purchase': editpurchase, 'form': form})
+            else:
+                try:
+                    form = editPurchaseForm(request.POST, instance=editpurchase)
+                    form.save()
+                    return redirect('membershipHome')
+                except ValueError:
+                    return render(request, 'display/editPurchase.html', {'purchase': editpurchase}, {'form': form},
+                                  {'error': 'Bad data type'})
     else:
-        try:
-            form = editPurchaseForm(request.POST, instance=editpurchase)
-            form.save()
-            return redirect('membershipHome')
-        except ValueError:
-            return render(request, 'display/editPurchase.html', {'purchase': editpurchase}, {'form':form}, {'error':'Bad data type'})
+        return render(request, 'verify/home.html')
+
 
 @login_required
 def deletePurchase(request, purchase_pk):
-    deletepurchase = get_object_or_404(purchase, pk= purchase_pk)
-    if request.method == "POST":
-        deletepurchase.delete()
-        return redirect('membershipHome')
+    current_user = User.objects.get(username=request.user.username)
+    Admin = custID.objects.get(username=current_user).isAdmin
+    isAdmin = Admin
+    if isAdmin:
+        deletepurchase = get_object_or_404(purchase, pk= purchase_pk)
+        if request.method == "POST":
+            deletepurchase.delete()
+            return redirect('membershipHome')
+    else:
+        return render(request, 'verify/home.html')
 
 
 @login_required
 def manageAccount(request):
     current_user = User.objects.get(username=request.user.username)
     group = custID.objects.get(username=current_user).group
-    accounts = custID.objects.filter(group=group)
-    return render(request, 'display/manageAccount.html', {'accounts': accounts})
+    Admin = custID.objects.get(username=current_user).isAdmin
+    isAdmin = Admin
+    if isAdmin:
+        if group != 'super':
+            accounts = custID.objects.filter(group=group)
+            return render(request, 'display/manageAccount.html', {'accounts': accounts, 'group': group})
+        else:
+            accounts = custID.objects.all()
+            return render(request, 'display/manageAccount.html', {'accounts': accounts, 'group': group})
+    else:
+        return render(request, 'verify/home.html')
 
 @login_required
 def editAccount(request, custID_pk):
-    editAccount = get_object_or_404(custID, pk= custID_pk)
-    if request.method == "GET":
-        form = editAccountForm(instance=editAccount)
-        return render(request, 'display/editAccount.html', {'form': form})
+    current_user = User.objects.get(username=request.user.username)
+    group = custID.objects.get(username=current_user).group
+    Admin = custID.objects.get(username=current_user).isAdmin
+    isAdmin = Admin
+    if isAdmin:
+        if group != 'super':
+            editAccount = get_object_or_404(custID, pk= custID_pk, group=group)
+            if request.method == "GET":
+                form = editAccountForm(instance=editAccount)
+                return render(request, 'display/editAccount.html', {'form': form})
+            else:
+                try:
+                    form = editAccountForm(request.POST, instance=editAccount)
+                    form.save()
+                    return redirect('membershipHome')
+                except ValueError:
+                    return render(request, 'display/editAccount.html',  {'editaccount': editAccount, 'form':form, 'error':'Bad data type'})
+        else:
+            editAccount = get_object_or_404(custID, pk=custID_pk)
+            if request.method == "GET":
+                form = editAccountForm(instance=editAccount)
+                return render(request, 'display/editAccount.html', {'form': form})
+            else:
+                try:
+                    form = editAccountForm(request.POST, instance=editAccount)
+                    form.save()
+                    return redirect('membershipHome')
+                except ValueError:
+                    return render(request, 'display/editAccount.html',
+                                  {'editaccount': editAccount, 'form': form, 'error': 'Bad data type'})
+
+
     else:
-        try:
-            form = editAccountForm(request.POST, instance=editAccount)
-            form.save()
-            return redirect('membershipHome')
-        except ValueError:
-            return render(request, 'display/editAccount.html',  {'editaccount': editAccount, 'form':form, 'error':'Bad data type'})
+        return render(request, 'verify/home.html')

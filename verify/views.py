@@ -16,37 +16,42 @@ from display import views
 
 
 # Create your views here.
-# The user signup page
 
 
-
-
+# For administrator to create account for users
 @login_required
 def signup(request):
-    if request.method =="GET":
-        background = verifyBackground.objects.all()
-        current_user = User.objects.get(username=request.user.username)
-        group = custID.objects.get(username=current_user).group
-
-        return render(request, 'verify/signup.html', {'backgrounds':background,'form':UserCreationForm() , 'group':group})
-    else:
-        #Create a new user
-        if request.POST['password1'] == request.POST['password2']:
-            try:
-                user = User.objects.create_user(request.POST['username'], password = request.POST['password1'])
-                user.save()
-                form = custIDForm(request.POST)
-                newuser = form.save(commit=False)
-                newuser.save()
-                login(request, user)
-                return redirect('membershipHome')
-            except IntegrityError:
-                background = verifyBackground.objects.all()
-                return render(request, 'verify/signup.html', {'backgrounds': background, 'form': UserCreationForm(), 'error': '此帳號已經被使用'})
-        else:
-            # Tell the user that password doesn't match
+    current_user = User.objects.get(username=request.user.username)
+    Admin = custID.objects.get(username=current_user).isAdmin
+    isAdmin = Admin
+    if isAdmin:
+        if request.method =="GET":
             background = verifyBackground.objects.all()
-            return render(request, 'verify/signup.html', {'backgrounds': background, 'form': UserCreationForm(), 'error':'兩次輸入的密碼不同'})
+            current_user = User.objects.get(username=request.user.username)
+            group = custID.objects.get(username=current_user).group
+
+            return render(request, 'verify/signup.html', {'backgrounds':background,'form':UserCreationForm() , 'group':group})
+        else:
+            #Create a new user
+            if request.POST['password1'] == request.POST['password2']:
+                try:
+                    user = User.objects.create_user(request.POST['username'], password = request.POST['password1'])
+                    user.save()
+                    form = custIDForm(request.POST)
+                    newuser = form.save(commit=False)
+                    newuser.save()
+                    login(request, user)
+                    return redirect('membershipHome')
+                except IntegrityError:
+                    background = verifyBackground.objects.all()
+                    return render(request, 'verify/signup.html', {'backgrounds': background, 'form': UserCreationForm(), 'error': '此帳號已經被使用'})
+            else:
+                # Tell the user that password doesn't match
+                background = verifyBackground.objects.all()
+                return render(request, 'verify/signup.html', {'backgrounds': background, 'form': UserCreationForm(), 'error':'兩次輸入的密碼不同'})
+    else:
+        return render(request, 'verify/home.html')
+
 
 @login_required
 def logoutuser(request):
