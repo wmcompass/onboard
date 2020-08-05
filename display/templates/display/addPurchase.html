@@ -2,7 +2,11 @@
 
 {% block content %}
 
-<h1>Add Customer Purchase</h1>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            <h2><b>新增交易紀錄<b></h2>
+        </div>
+    </div>
 
 
     <div class="row justify-content-center mt-5">
@@ -32,28 +36,16 @@
                             <input type="text" name="customerDesc" class="form-control" id="customerDesc">
                         </div>
                         <div class="form-group">
-                            <label for="pressDesc">pressDesc</label>
-                            <input type="text" name="pressDesc" class="form-control" id="pressDesc">
-                        </div>
-                        <div class="form-group">
-                            <label for="currency">currency</label>
-                            <input type="text" name="currency" class="form-control" id="currency">
+                            <label for="orderDesc">orderDesc</label>
+                            <input type="text" name="orderDesc" class="form-control" id="orderDesc">
                         </div>
                         <div class="form-group">
                             <label for="amount">amount</label>
                             <input type="text" name="amount" class="form-control" id="amount">
                         </div>
                         <div class="form-group">
-                            <label for="NTamount">NTamount</label>
-                            <input type="text" name="NTamount" class="form-control" id="NTamount">
-                        </div>
-                        <div class="form-group">
-                            <label for="country">country</label>
-                            <input type="text" name="country" class="form-control" id="country">
-                        </div>
-                        <div class="form-group">
                             <label for="group">group</label>
-                            <input type="text" name="group" class="form-control" id="group" ">
+                            <input type="text" name="group" class="form-control" id="group">
                         </div>
 
                         <button type="submit" class="btn btn-primary">新增</button>
@@ -78,24 +70,12 @@
                             <input type="text" name="customerDesc" class="form-control" id="customerDesc">
                         </div>
                         <div class="form-group">
-                            <label for="pressDesc">pressDesc</label>
-                            <input type="text" name="pressDesc" class="form-control" id="pressDesc">
-                        </div>
-                        <div class="form-group">
-                            <label for="currency">currency</label>
-                            <input type="text" name="currency" class="form-control" id="currency">
+                            <label for="orderDesc">orderDesc</label>
+                            <input type="text" name="orderDesc" class="form-control" id="orderDesc">
                         </div>
                         <div class="form-group">
                             <label for="amount">amount</label>
                             <input type="text" name="amount" class="form-control" id="amount">
-                        </div>
-                        <div class="form-group">
-                            <label for="NTamount">NTamount</label>
-                            <input type="text" name="NTamount" class="form-control" id="NTamount">
-                        </div>
-                        <div class="form-group">
-                            <label for="country">country</label>
-                            <input type="text" name="country" class="form-control" id="country">
                         </div>
                         <div class="form-group">
                             <input type="hidden" name="group" class="form-control" id="group" value="{{ group }}">

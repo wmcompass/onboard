@@ -8,11 +8,8 @@ class purchase(models.Model):
     orderNumber = models.CharField(max_length=100)
     customerID = models.CharField(max_length=100)
     customerDesc = models.CharField(max_length=250)
-    pressDesc = models.CharField(max_length=250)
-    currency = models.CharField(max_length=20)
+    orderDesc = models.CharField(max_length=500, blank=True)
     amount = models.FloatField()
-    NTamount = models.FloatField()
-    country = models.CharField(max_length=100)
     group = models.CharField(max_length=250)
 
     def __str__ (self):

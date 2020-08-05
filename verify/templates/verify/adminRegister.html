@@ -4,7 +4,7 @@
 
     <div class="row justify-content-center mt-5">
         <div class="col-md-5">
-            <h2>Administrator Sign Up</h2>
+            <h2>管理帳號註冊</h2>
         </div>
     </div>
     <div class="row justify-content-center mt-5">
@@ -17,16 +17,16 @@
             <form method="POST">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label for="username">Username</label>
+                    <label for="username">帳號</label>
                     <input type="text" name="username" class="form-control" id="username" aria-describedby="usernameHelp">
                     <small id="usernameHelp" class="form-text text-muted">使用者名稱不可以重複.</small>
                 </div>
                 <div class="form-group">
-                    <label for="password1">Password</label>
+                    <label for="password1">密碼</label>
                     <input type="password" name="password1" class="form-control" id="password1">
                 </div>
                 <div class="form-group">
-                    <label for="password2">Confirm Password</label>
+                    <label for="password2">確認密碼</label>
                     <input type="password" name="password2" class="form-control" id="password2">
                 </div>
                 <div class="form-group">
@@ -36,7 +36,7 @@
                     <input type="hidden" name="customerDesc" class="form-control" id="customerDesc" value="admin">
                 </div>
                 <div class="form-group">
-                    <label for="group">Group</label>
+                    <label for="group">公司/團體名稱</label>
                     <input type="group" name="group" class="form-control" id="group">
                 </div>
                 <div class="form-group">
@@ -44,7 +44,7 @@
                 </div>
 
 
-                <button type="submit" class="btn btn-primary">Sign Up</button>
+                <button type="submit" class="btn btn-primary">註冊</button>
             </form>
             <hr>
 

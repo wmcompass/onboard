@@ -45,7 +45,7 @@
             </div>
         {% else %}
             <a class="navbar-brand" href="{% url 'membershipHome' %}">
-                <span>onboard</span>
+                <img src="{% static 'display/onboard-2.png' %}" width="100" height="30" class="d-inline-block align-top">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -60,11 +60,11 @@
                         </form>
                     </li>
                 </ul>
-            </div>>
+            </div>
         {% endif %}
     {% else %}
-        <a class="navbar-brand" href="{% url 'home' %}">
-            <span>onboard</span>
+        <a class="navbar-brand" href="{% url 'membershipHome' %}">
+            <img src="{% static 'display/onboard-2.png' %}" width="100" height="30" class="d-inline-block align-top">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

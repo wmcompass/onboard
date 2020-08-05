@@ -2,7 +2,11 @@
 
 {% block content %}
 
-<h1>Edit Account</h1>
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <h2><b>修改帳號設定<b></h2>
+    </div>
+</div>
 
 
 <div class="row justify-content-center mt-5">
@@ -12,12 +16,13 @@
         <div class="col-md-5">
             <form method="POST">
                 {% csrf_token %}
-                {{ form.as_p }}
+                <h5>客戶名稱</h5>{{ form.customerDesc }}
+                <h5>會員等級</h5>{{ form.level }}
+                <h5>是否為管理者</h5>{{ form.isAdmin }}<br><br>
                 <button type = "submit" >儲存變更</button>
             </form>
         </div>
 </div>
-
 
 
 

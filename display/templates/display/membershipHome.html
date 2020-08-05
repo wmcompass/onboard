@@ -37,10 +37,8 @@
             <th>訂單日期</th> <!-- OrderDate -->
             <th>訂單編號</th> <!-- orderNumber -->
             <th>客戶名稱</th> <!-- customerDesc -->
-            <th>適用機台</th> <!-- pressDesc -->
-            <th>幣別</th> <!-- currency -->
+            <th>訂單內容</th> <!-- orderDesc -->
             <th>金額</th> <!-- amount -->
-            <th>國家</th> <!-- country -->
             <th>修改</th>
             <th>刪除</th>
           </tr>
@@ -51,10 +49,8 @@
                 <td>{{purchase.orderDate}}</td> <!-- OrderDate -->
                 <td>{{purchase.orderNumber}}</td> <!-- orderNumber -->
                 <td>{{purchase.customerDesc}}</td> <!-- customerDesc -->
-                <td>{{purchase.pressDesc}}</td> <!-- pressDesc -->
-                <td>{{purchase.currency}}</td> <!-- currency -->
+                <td>{{purchase.orderDesc}}</td> <!-- orderDesc -->
                 <td>{{purchase.amount}}</td> <!-- amount -->
-                <td>{{purchase.country}}</td> <!-- country -->
                 <td>
                     <a href="{% url 'editPurchase' purchase.id %}">
                     修改
@@ -87,10 +83,8 @@
             <th>訂單日期</th> <!-- OrderDate -->
             <th>訂單編號</th> <!-- orderNumber -->
             <th>客戶名稱</th> <!-- customerDesc -->
-            <th>適用機台</th> <!-- pressDesc -->
-            <th>幣別</th> <!-- currency -->
+            <th>訂單內容</th> <!-- orderDesc -->
             <th>金額</th> <!-- amount -->
-            <th>國家</th> <!-- country -->
           </tr>
         </thead>
         <tbody>
@@ -99,10 +93,8 @@
                 <td>{{purchase.orderDate}}</td> <!-- OrderDate -->
                 <td>{{purchase.orderNumber}}</td> <!-- orderNumber -->
                 <td>{{purchase.customerDesc}}</td> <!-- customerDesc -->
-                <td>{{purchase.pressDesc}}</td> <!-- pressDesc -->
-                <td>{{purchase.currency}}</td> <!-- currency -->
+                <td>{{purchase.orderDesc}}</td> <!-- orderDesc -->
                 <td>{{purchase.amount}}</td> <!-- amount -->
-                <td>{{purchase.country}}</td> <!-- country -->
             </tr>
         {% endfor %}
         </tbody>

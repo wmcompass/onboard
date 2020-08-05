@@ -4,7 +4,7 @@
 
     <div class="row justify-content-center mt-5">
         <div class="col-md-5">
-            <h2>Sign Up</h2>
+            <h2><b>新增帳號<b></h2>
         </div>
     </div>
     <div class="row justify-content-center mt-5">
@@ -17,29 +17,29 @@
             <form method="POST">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label for="username">Username</label>
+                    <label for="username">使用者帳號</label>
                     <input type="text" name="username" class="form-control" id="username" aria-describedby="usernameHelp">
-                    <small id="usernameHelp" class="form-text text-muted">使用者名稱不可以重複.</small>
+                    <small id="usernameHelp" class="form-text text-muted">使用者帳號不可以重複.</small>
                 </div>
                 <div class="form-group">
-                    <label for="password1">Password</label>
+                    <label for="password1">密碼</label>
                     <input type="password" name="password1" class="form-control" id="password1">
                 </div>
                 <div class="form-group">
-                    <label for="password2">Confirm Password</label>
+                    <label for="password2">確認密碼</label>
                     <input type="password" name="password2" class="form-control" id="password2">
                 </div>
                 <div class="form-group">
-                    <label for="customerID">CustomerID</label>
+                    <label for="customerID">客戶ID</label>
                     <input type="customerID" name="customerID" class="form-control" id="customerID">
                     <small id="customerIDHelp" class="form-text text-muted">客戶ID不可以重複.</small>
                 </div>
                 <div class="form-group">
-                    <label for="customerDesc">CustomerDesc</label>
+                    <label for="customerDesc">客戶名稱</label>
                     <input type="customerDesc" name="customerDesc" class="form-control" id="customerDesc">
                 </div>
                 <div class="form-group">
-                    <label for="level">level</label>
+                    <label for="level">會員等級</label>
                     <input type="level" name="level" class="form-control" id="level">
                 </div>
                 <div class="form-group">

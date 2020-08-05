@@ -16,11 +16,9 @@ class custIDForm(ModelForm):
 class addPurchaseForm(ModelForm):
     class Meta:
         model = purchase
-        fields = ['orderDate', 'orderNumber', 'customerID', 'customerDesc', 'pressDesc',
-                  'currency', 'amount', 'NTamount', 'country', 'group']
+        fields = ['orderDate', 'orderNumber', 'customerID', 'customerDesc', 'orderDesc', 'amount', 'group']
 
 class editPurchaseForm(ModelForm):
     class Meta:
         model = purchase
-        fields = ['orderDate', 'orderNumber', 'customerID', 'customerDesc', 'pressDesc',
-                  'currency', 'amount', 'NTamount', 'country']
+        fields = ['orderDate', 'orderNumber', 'customerID', 'customerDesc', 'orderDesc', 'amount']
