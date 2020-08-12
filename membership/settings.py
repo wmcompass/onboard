@@ -25,7 +25,7 @@ SECRET_KEY = 's-(ms1-2yh^bbmuu6rzs+bs47*28*w!+twyemnuv4)wubvibey'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['dayweychen.pythonanywhere.com']
+ALLOWED_HOSTS = ['onboard.ideasexecution.com']
 
 
 # Application definition
@@ -126,3 +126,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_URL = ''
+
+try:
+    from .local_settings import *
+except ImportError:
+    print("Looks like there are no local file, you must be on production")
