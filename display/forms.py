@@ -11,14 +11,14 @@ class editAccountForm(ModelForm):
 class custIDForm(ModelForm):
     class Meta:
         model = custID
-        fields = ['customerID', 'username', 'customerDesc', 'group', 'isAdmin']
+        fields = ['username', 'customerDesc', 'group', 'isAdmin', 'level']
 
 class addPurchaseForm(ModelForm):
     class Meta:
         model = purchase
-        fields = ['orderDate', 'orderNumber', 'customerID', 'customerDesc', 'orderDesc', 'amount', 'group']
+        fields = ['orderDate', 'orderNumber', 'username', 'customerDesc', 'orderDesc', 'amount', 'group']
 
 class editPurchaseForm(ModelForm):
     class Meta:
         model = purchase
-        fields = ['orderDate', 'orderNumber', 'customerID', 'customerDesc', 'orderDesc', 'amount']
+        fields = ['orderDate', 'orderNumber', 'username', 'customerDesc', 'orderDesc', 'amount']

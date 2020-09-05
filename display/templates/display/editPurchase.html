@@ -17,11 +17,10 @@
         <div class="col-md-5">
             <form method="POST">
                 {% csrf_token %}
-                <h5>訂單日期</h5>{{ form.orderDate }}
-                <h5>訂單編號</h5>{{ form.orderNumber }}
-                <h5>客戶ID</h5>{{ form.customerID }}
-                <h5>客戶名稱</h5>{{ form.customerDesc }}
-                <h5>訂單內容</h5>{{ form.orderDesc }}
+                <h5>訂單日期</h5>{{ form.orderDate }}<br></br>
+                <h5>訂單編號</h5>{{ form.orderNumber }}<br></br>
+                <h5>客戶名稱</h5>{{ form.customerDesc }}<br></br>
+                <h5>訂單內容</h5>{{ form.orderDesc }}<br></br>
                 <h5>金額</h5>{{ form.amount }}<br><br>
                 <button type = "submit" >儲存變更</button>
             </form>

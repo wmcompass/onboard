@@ -6,20 +6,19 @@ from django.db import models
 class purchase(models.Model):
     orderDate = models.DateField()
     orderNumber = models.CharField(max_length=100)
-    customerID = models.CharField(max_length=100)
+    username = models.CharField(max_length=250, blank = True)
     customerDesc = models.CharField(max_length=250)
     orderDesc = models.CharField(max_length=500, blank=True)
     amount = models.FloatField()
     group = models.CharField(max_length=250)
 
     def __str__ (self):
-        return '%s %s %s' % (self.orderNumber, self.customerDesc, self.customerID)
+        return '%s %s %s' % (self.orderNumber, self.customerDesc, self.group)
 
 class displayBackground(models.Model):
     image = models.ImageField(upload_to='display/images/', blank=True)
 
 class custID(models.Model):
-    customerID = models.CharField(max_length=100)
     username = models.CharField(max_length=250)
     customerDesc = models.CharField(max_length=250)
     group = models.CharField(max_length=250)
@@ -28,5 +27,4 @@ class custID(models.Model):
 
 
     def __str__ (self):
-        return '%s %s %s %s' % (self.customerID, self.username, self.group , self.isAdmin)
-
+        return '%s %s %s %s' % ( self.username, self.group , self.level, self.isAdmin)

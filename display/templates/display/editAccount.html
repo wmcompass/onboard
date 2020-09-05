@@ -16,8 +16,8 @@
         <div class="col-md-5">
             <form method="POST">
                 {% csrf_token %}
-                <h5>客戶名稱</h5>{{ form.customerDesc }}
-                <h5>會員等級</h5>{{ form.level }}
+                <h5>客戶名稱</h5>{{ form.customerDesc }}<br></br>
+                <h5>會員等級</h5>{{ form.level }}<br></br>
                 <h5>是否為管理者</h5>{{ form.isAdmin }}<br><br>
                 <button type = "submit" >儲存變更</button>
             </form>
