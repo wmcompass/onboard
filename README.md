@@ -7,4 +7,4 @@ The enterprise can create an enterpriese account, and the customers account can 
 A basic demostration of CRUD application
 
 The tool is developed in python, using the Django framework.
-{Backend: python-Django} {fontend: html}
+{Backend: python-Django} {fontend: html, bootstrap}
